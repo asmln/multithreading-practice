@@ -1,5 +1,7 @@
 package com.github.asmln.multi.counter;
 
+import com.github.asmln.multi.producer_consumer.BadMarket;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.IntStream;
@@ -18,7 +20,22 @@ public class Main {
 
     static void main() {
         int threadsCount = 100;
-        int stepCount = 10000;
+        int stepCount = 10_000;
+        // Работа в одном потоке:
+        IO.println("➡\uFE0F Однопоточная работа:");
+        BadCounter badCounter = new BadCounter();
+        for (int i = 0; i < threadsCount * stepCount; i++) {
+            badCounter.increment();
+        }
+        IO.println("Работа в одном потоке" + String.format(
+                Locale.FRANCE,
+                ": %s Ожидаем %,d, получили %,d.",
+                (threadsCount * stepCount == badCounter.get() ? "✅" : "❌"),
+                (threadsCount * stepCount),
+                badCounter.get())
+        );
+        // Многопоточка:
+        IO.println("\uD83D\uDD00 Многопоточная работа:");
         for (var counter: COUNTERS) {
             runMultiThreads(threadsCount, stepCount, counter);
             IO.println(counter.description() + String.format(
