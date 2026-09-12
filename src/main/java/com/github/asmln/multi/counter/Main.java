@@ -34,7 +34,7 @@ public class Main {
     static void runMultiThreads(int threadsCount, int stepCount, Counter counter) {
         IntStream.rangeClosed(1, threadsCount)
                 .parallel()
-                .forEach(n -> {
+                .forEach(_ -> {
                     for (int i = 0; i < stepCount; i++) {
                         counter.increment();
                     }
