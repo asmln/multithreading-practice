@@ -24,7 +24,7 @@ public class BadMarket implements Market {
         while (buffer.isEmpty()) {
             // Надо обработать прерывание, иначе выполнение просто зависнет
             if (Thread.currentThread().isInterrupted()) {
-                return -1;
+                throw new RuntimeException();
             }
         }
         return buffer.poll();
@@ -35,7 +35,7 @@ public class BadMarket implements Market {
         while (buffer.size() >= maxSize) {
             // Надо обработать прерывание, иначе выполнение просто зависнет
             if (Thread.currentThread().isInterrupted()) {
-                return;
+                throw new RuntimeException();
             }
         }
         buffer.offer(n);

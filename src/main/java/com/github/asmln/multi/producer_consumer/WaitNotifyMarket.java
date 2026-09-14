@@ -25,7 +25,7 @@ public class WaitNotifyMarket implements Market {
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                return -1;
+                throw new RuntimeException();
             }
         }
         notifyAll();
@@ -39,7 +39,7 @@ public class WaitNotifyMarket implements Market {
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                return;
+                throw new RuntimeException();
             }
         }
         buffer.offer(n);
