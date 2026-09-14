@@ -14,7 +14,8 @@ public class Main {
 
     static List<Market> MARKETS = List.of(
             new BadMarket(MARKET_SIZE),
-            new WaitNotifyMarket(MARKET_SIZE)
+            new WaitNotifyMarket(MARKET_SIZE),
+            new BlockingQueueMarket(MARKET_SIZE)
     );
 
     static void main() {
@@ -49,6 +50,7 @@ public class Main {
                     );
                 }
             } catch (InterruptedException e) {
+                IO.println(market.description() + ": ❌ В процессе работы произошло исключение " + e);
                 throw new RuntimeException(e);
             } catch (Exception e) {
                 IO.println(market.description() + ": ❌ В процессе работы произошло исключение " + e);
@@ -72,8 +74,9 @@ public class Main {
         });
         executor.submit(() -> {
             for (int i = 0; i < stepCount; i++) {
-                market.get();
-                receivedCounter.incrementAndGet();
+                if (market.get() > 0) {
+                    receivedCounter.incrementAndGet();
+                }
             }
         });
     }
