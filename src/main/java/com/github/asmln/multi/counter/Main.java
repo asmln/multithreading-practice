@@ -1,7 +1,5 @@
 package com.github.asmln.multi.counter;
 
-import com.github.asmln.multi.producer_consumer.BadMarket;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.IntStream;
@@ -23,7 +21,7 @@ public class Main {
         int stepCount = 10_000;
         IO.println("\uD83D\uDCA1Счётчик");
         // Работа в одном потоке:
-        IO.println("➡\uFE0F Однопоточная работа:");
+        IO.println("➡️ Однопоточная работа:");
         BadCounter badCounter = new BadCounter();
         for (int i = 0; i < threadsCount * stepCount; i++) {
             badCounter.increment();

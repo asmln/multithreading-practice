@@ -23,7 +23,7 @@ public class Main {
         int stepCount = 100_000;
         IO.println("\uD83D\uDCA1Producer-Consumer");
         // Работа в одном потоке:
-        IO.println("➡\uFE0F Однопоточная работа:");
+        IO.println("➡️ Однопоточная работа:");
         BadMarket badMarket = new BadMarket(MARKET_SIZE);
         for (int i = 0; i < stepCount; i++) {
             badMarket.put(1);

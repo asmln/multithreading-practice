@@ -18,15 +18,11 @@ public class ThreadsDeliveryService extends AbstractDeliveryService {
     public Delivery createDelivery(Order order) {
         var paymentResult = new ResultContainer<Boolean>();
         Thread thread1 = new Thread(
-                () -> {
-                    paymentResult.value = getPaymentService().checkPaymentById(order.paymentId());
-                }
+                () -> paymentResult.value = getPaymentService().checkPaymentById(order.paymentId())
         );
         var productResult = new ResultContainer<Boolean>();
         Thread thread2 = new Thread(
-                () -> {
-                    productResult.value = getProductService().checkAvailabilityByProductId(order.productId());
-                }
+                () -> productResult.value = getProductService().checkAvailabilityByProductId(order.productId())
         );
         thread1.start();
         thread2.start();
