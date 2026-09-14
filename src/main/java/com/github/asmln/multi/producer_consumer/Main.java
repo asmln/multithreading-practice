@@ -15,6 +15,7 @@ public class Main {
     static List<Market> MARKETS = List.of(
             new BadMarket(MARKET_SIZE),
             new WaitNotifyMarket(MARKET_SIZE),
+            new ReentrantLockMarket(MARKET_SIZE),
             new BlockingQueueMarket(MARKET_SIZE)
     );
 
@@ -74,9 +75,8 @@ public class Main {
         });
         executor.submit(() -> {
             for (int i = 0; i < stepCount; i++) {
-                if (market.get() > 0) {
-                    receivedCounter.incrementAndGet();
-                }
+                market.get();
+                receivedCounter.incrementAndGet();
             }
         });
     }
