@@ -26,24 +26,22 @@ public class CompletableFutureDeliveryService extends AbstractDeliveryService {
                     () -> getAddressService().obtainAddressByClientId(order.clientId()),
                     executor
             );
-            CompletableFuture<Delivery> deliveryCF = paymentFuture.thenCombine(
+            CompletableFuture<Void> allFutures = CompletableFuture.allOf(
+                    paymentFuture,
                     productFuture,
-                    (paymentOk, productOk) -> paymentOk && productOk
-            ).thenCombine(
-                    addressFuture,
-                    (ok, address) -> {
-                        if (ok && address != null) {
-                            return new Delivery(order.clientId(), address);
-                        } else {
-                            throw new IllegalStateException();
-                        }
-                    }
+                    addressFuture
             );
-            try {
-                return deliveryCF.join();
-            } catch (CompletionException e) {
+            allFutures.join();
+            Address address = addressFuture.join();
+            if (Boolean.TRUE.equals(paymentFuture.join())
+                    && Boolean.TRUE.equals(productFuture.join())
+                    && address != null) {
+                return new Delivery(order.clientId(), address);
+            } else {
                 throw new IllegalStateException();
             }
+        } catch (CompletionException e) {
+            throw new IllegalStateException();
         }
     }
 }
