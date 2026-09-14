@@ -31,7 +31,7 @@ public class ReentrantLockMarket implements Market {
             while (buffer.isEmpty()) {
                 readCondition.await();
             }
-            writeCondition.signalAll();
+            writeCondition.signal();
             return buffer.poll();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -48,7 +48,7 @@ public class ReentrantLockMarket implements Market {
             while (buffer.size() >= maxSize) {
                 writeCondition.await();
             }
-            readCondition.signalAll();
+            readCondition.signal();
             buffer.offer(n);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
