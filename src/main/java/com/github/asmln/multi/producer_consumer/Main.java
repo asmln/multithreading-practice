@@ -21,6 +21,7 @@ public class Main {
 
     static void main() {
         int stepCount = 100_000;
+        IO.println("\uD83D\uDCA1Producer-Consumer");
         // Работа в одном потоке:
         IO.println("➡\uFE0F Однопоточная работа:");
         BadMarket badMarket = new BadMarket(MARKET_SIZE);

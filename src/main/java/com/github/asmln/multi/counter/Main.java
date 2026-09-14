@@ -21,6 +21,7 @@ public class Main {
     static void main() {
         int threadsCount = 100;
         int stepCount = 10_000;
+        IO.println("\uD83D\uDCA1Счётчик");
         // Работа в одном потоке:
         IO.println("➡\uFE0F Однопоточная работа:");
         BadCounter badCounter = new BadCounter();
