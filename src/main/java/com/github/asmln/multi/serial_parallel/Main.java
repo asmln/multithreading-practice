@@ -10,7 +10,8 @@ public class Main {
             new SerialDeliveryService(),
             new ThreadsDeliveryService(),
             new FutureDeliveryService(),
-            new CompletableFutureDeliveryService()
+            new CompletableFutureDeliveryService(),
+            new VirtualFutureDeliveryService()
     );
     static void main() {
         IO.println("\uD83D\uDCA1Запросы в несколько медленных сервисов");
