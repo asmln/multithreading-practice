@@ -8,7 +8,8 @@ import java.util.Locale;
 public class Main {
     static List<DeliveryService> deliveryServices = List.of(
             new SerialDeliveryService(),
-            new ThreadsDeliveryService()
+            new ThreadsDeliveryService(),
+            new FutureDeliveryService()
     );
     static void main() {
         IO.println("\uD83D\uDCA1Запросы в несколько медленных сервисов");
