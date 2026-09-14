@@ -20,12 +20,9 @@ public class FutureDeliveryService extends AbstractDeliveryService {
             Future<Boolean> productFuture = executor.submit(
                     () -> getProductService().checkAvailabilityByProductId(order.productId())
             );
-            Future<Address> addressFuture = executor.submit(
-                    () -> getAddressService().obtainAddressByClientId(order.clientId())
-            );
+            Address address = getAddressService().obtainAddressByClientId(order.clientId());
             Boolean paymentOk = paymentFuture.get();
             Boolean productOk = productFuture.get();
-            Address address = addressFuture.get();
             if (paymentOk && productOk && address != null) {
                 return new Delivery(order.clientId(), address);
             } else {
