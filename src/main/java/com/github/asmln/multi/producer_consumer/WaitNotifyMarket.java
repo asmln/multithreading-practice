@@ -15,7 +15,7 @@ public class WaitNotifyMarket implements Market {
 
     @Override
     public String description() {
-        return "synchronized и wait-notify";
+        return "synchronized и wait-notifyAll";
     }
 
     @Override

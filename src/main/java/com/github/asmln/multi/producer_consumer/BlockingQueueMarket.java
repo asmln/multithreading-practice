@@ -3,6 +3,7 @@ package com.github.asmln.multi.producer_consumer;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+// Producer-Consumer на BlockingQueue.
 public class BlockingQueueMarket implements Market {
 
     private final BlockingQueue<Integer> buffer;
