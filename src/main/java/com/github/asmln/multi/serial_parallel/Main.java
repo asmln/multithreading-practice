@@ -11,7 +11,8 @@ public class Main {
             new ThreadsDeliveryService(),
             new FutureDeliveryService(),
             new CompletableFutureDeliveryService(),
-            new VirtualFutureDeliveryService()
+            new VirtualFutureDeliveryService(),
+            new VirtualCompletableFutureDeliveryService()
     );
     static void main() {
         IO.println("\uD83D\uDCA1Запросы в несколько медленных сервисов");
