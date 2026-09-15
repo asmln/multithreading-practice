@@ -5,11 +5,15 @@ import com.github.asmln.multi.completable_future.integration.ValidationCase;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
+// UseCase: Нужно выполнить несколько запросов и дождаться результата самого быстрого.
+// Большинство запросов выполняются DURATION мс.
+// Один - SHORT_DURATION мс.
+// После получения ответа прерываем выполнение задач.
 public class AnyOfValidator extends Validator {
-    private final static int TIMEOUT = 1000;
+    private final static int DURATION = 1000;
+    private final static int SHORT_DURATION = 100;
 
     protected AnyOfValidator(Executor executor) {
         super(executor);
@@ -26,7 +30,7 @@ public class AnyOfValidator extends Validator {
                 .mapToObj(
                         _ -> CompletableFuture.supplyAsync(
                                 () -> getExternalValidationService().validate(
-                                        new ValidationCase(TIMEOUT, true)
+                                        new ValidationCase(DURATION, true)
                                 ),
                                 executor()
                         )
@@ -34,7 +38,7 @@ public class AnyOfValidator extends Validator {
         var array = fList.toArray(new CompletableFuture[4]);
         array[3] = CompletableFuture.supplyAsync(
                 () -> getExternalValidationService().validate(
-                        new ValidationCase(100, false)
+                        new ValidationCase(SHORT_DURATION, false)
                 ),
                 executor()
         );

@@ -1,6 +1,5 @@
 package com.github.asmln.multi.completable_future.integration;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeUnit;
 
 public class ValidationCase {
